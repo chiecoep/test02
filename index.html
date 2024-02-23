@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <script src="js/jquery-2.1.3.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/sample.css">
+    <title>クイズゲーム</title>
+</head>
+
+<body>
+
+    <header>
+        <h1>クイズゲーム</h1>
+    </header>
+
+    <main>
+        <div id="quiz"></div>
+        <button id="next">次へ</button>
+        <div id="results"></div>
+        <button id="retry" style="display: none;">もう一度挑戦</button>
+    </main>
+
+    <footer></footer>
+
+<script>
+     const quizContainer = document.getElementById('quiz');
+        const resultsContainer = document.getElementById('results');
+        const nextButton = document.getElementById('next');
+        const retryButton = document.getElementById('retry');
+
+        const questions = [
+            // ここに問題を15問追加してください
+            {
+        text: 'ミッキーの誕生日は',
+        answers: [
+            { text: '5月25日', isCorrect: false },
+            { text: '6月9日', isCorrect: false },
+            { text: '9月5日', isCorrect: false },
+            { text: '11月18日', isCorrect: true }
+            ],
+            explanation: 'ミッキーマウスの誕生日は1928年の11月18日です。'
+        },
+        {
+            text: '東京ディズニーランドのオープン日は',
+        answers: [
+            { text: '4月15日', isCorrect: true },
+            { text: '6月6日', isCorrect: false },
+            { text: '9月4日', isCorrect: false },
+            { text: '11月11日', isCorrect: false }
+            ],
+            explanation: 'ミッキーマウスの誕生日は1928年の11月18日です。'
+        },
+        {
+        text: 'この中でいちばん高い建物は',
+        answers: [
+            { text: 'ビッグサンダーマウンテン', isCorrect: false },
+            { text: 'シンデレラ城', isCorrect: false },
+            { text: 'プロメテウス火山', isCorrect: false },
+            { text: 'タワーオブテラー', isCorrect: true }
+            ],
+            explanation: 'ミッキーマウスの誕生日は1928年の11月18日です。'
+        },
+        {
+        text: '2024年にオープンするファンタジースプリングスにない施設は',
+        answers: [
+            { text: 'ピーターパン', isCorrect: false },
+            { text: '白雪姫', isCorrect: true },
+            { text: '塔の上のラプンツェル', isCorrect: false },
+            { text: 'アナと雪の女王', isCorrect: false }
+            ],
+            explanation: 'ミッキーマウスの誕生日は1928年の11月18日です。'
+        },
+        {
+        text: 'ダッフィーに会えるグリーティング施設があるのは（2024年2月現在）',
+        answers: [
+            { text: 'ウエスタンランド', isCorrect: false },
+            { text: 'ケープコッド', isCorrect: false },
+            { text: 'トゥーンタウン', isCorrect: false },
+            { text: 'ロストリバーデルタ', isCorrect: true }
+            ],
+            explanation: 'ミッキーマウスの誕生日は1928年の11月18日です。'
+        },
+        {
+        text: 'グーフィーの息子の名前は',
+        answers: [
+            { text: 'マックス', isCorrect: true },
+            { text: 'オズワルド', isCorrect: false },
+            { text: 'モーティマー', isCorrect: false },
+            { text: 'ピート', isCorrect: false }
+            ],
+            explanation: 'ミッキーマウスの誕生日は1928年の11月18日です。'
+        },
+        {
+        text: 'ドナルドダックのおじの名前は',
+        answers: [
+            { text: 'デューイ', isCorrect: false },
+            { text: 'ルーイ', isCorrect: false },
+            { text: 'スクルージ', isCorrect: true },
+            { text: 'ヒューイ', isCorrect: false }
+            ]
+        },
+        {
+        text: 'ピクサー作品ではないのは',
+        answers: [
+            { text: 'リメンバー・ミー', isCorrect: false },
+            { text: 'メリダとおそろしの森', isCorrect: false },
+            { text: 'ベイマックス', isCorrect: true },
+            { text: '私ときどきレッサーパンダ', isCorrect: false }
+            ],
+            explanation: 'ミッキーマウスの誕生日は1928年の11月18日です。'
+        },{
+        text: 'いちばん年下なのは',
+        answers: [
+            { text: 'アリエル', isCorrect: false },
+            { text: 'ジャスミン', isCorrect: true },
+            { text: 'アナ', isCorrect: false },
+            { text: 'ベル', isCorrect: false }
+            ],
+            explanation: 'ミッキーマウスの誕生日は1928年の11月18日です。'
+        },
+        {
+        text: 'いちばん古いホテルは',
+        answers: [
+            { text: '東京ディズニーランドホテル', isCorrect: false },
+            { text: '東京ディズニーシー・ホテルミラコスタ', isCorrect: false },
+            { text: 'ディズニーアンバサダーホテル', isCorrect: true },
+            { text: 'トイ・ストーリーホテル', isCorrect: false }
+            ],
+            explanation: 'ミッキーマウスの誕生日は1928年の11月18日です。'
+        },
+        {
+        text: '1983年の開園当時からある施設は',
+        answers: [
+            { text: 'スペース・マウンテン', isCorrect: true },
+            { text: 'ビッグサンダー・マウンテン', isCorrect: false },
+            { text: 'バズ・ライトイヤーのアストロブラスター', isCorrect: false },
+            { text: 'アリスのティーパーティー', isCorrect: false }
+            ],
+            explanation: 'ミッキーマウスの誕生日は1928年の11月18日です。'
+        },
+        ];
+
+        let shuffledQuestions, currentQuestionIndex, correctAnswers;
+
+        function startQuiz() {
+            shuffledQuestions = questions.sort(() => Math.random() - .5);
+            currentQuestionIndex = 0;
+            correctAnswers = 0;
+            nextButton.style.display = 'none';
+            retryButton.style.display = 'none';
+            showNextQuestion();
+        }
+
+        function showNextQuestion() {
+            showQuestion(shuffledQuestions[currentQuestionIndex]);
+            nextButton.style.display = 'none';
+        }
+
+        function showQuestion(question) {
+            quizContainer.innerHTML = '';
+            const questionElement = document.createElement('h2');
+            questionElement.innerText = question.question;
+            quizContainer.appendChild(questionElement);
+
+            question.answers.forEach((answer, i) => {
+                const button = document.createElement('button');
+                button.innerText = answer.text;
+                button.addEventListener('click', () => selectAnswer(answer.correct));
+                quizContainer.appendChild(button);
+            });
+        }
+
+        function selectAnswer(correct) {
+            if (correct) correctAnswers++;
+            nextButton.style.display = 'inline';
+            if (currentQuestionIndex === 9) nextButton.innerText = '結果を表示';
+        }
+
+        nextButton.addEventListener('click', () => {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < 10) {
+                showNextQuestion();
+            } else {
+                showResults();
+            }
+        });
+
+        function showResults() {
+            quizContainer.style.display = 'none';
+            nextButton.style.display = 'none';
+            resultsContainer.innerText = `スコア: ${correctAnswers} / 10`;
+            retryButton.style.display = 'inline';
+        }
+
+        retryButton.addEventListener('click', () => {
+            quizContainer.style.display = 'block';
+            resultsContainer.innerText = '';
+            startQuiz();
+        });
+
+        startQuiz();
+</script>
+
+</body>
+
+</html>

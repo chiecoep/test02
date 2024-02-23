@@ -1,0 +1,30 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+header {
+    text-align: center;
+    padding: 20px;
+    color: #FFFFFF; /* ヘッダーのテキスト色を白に設定 */
+    background-color: #FF69B4; /* ヘッダーの背景色をホットピンクに設定 */
+}
+
+main {
+    /* margin: 0 auto; */
+    /* width: 80%; */
+    /* text-align: center; */
+}
+
+.card {
+    width: 100px;
+    height: 100px;
+    background-color: #ccc;
+    display: inline-block;
+    margin: 10px;
+    text-align: center;
+    line-height: 100px;
+    font-size: 2em;
+    cursor: pointer;
+}
